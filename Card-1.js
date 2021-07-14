@@ -74,8 +74,8 @@ window.url_text =document.getElementById('url-text').innerHTML
 window.name = document.getElementById("input-name").value
 var ChangeUrl = (name) =>{
     url_text.innerHTML = 'Card Link :'
-    url.innerHTML = 'https://frosty-payne-580a2c.netlify.app/?id=1&user='+name
-    url_link = 'https://frosty-payne-580a2c.netlify.app/?id=1&user='+name
+    url.innerHTML = 'https://card-it.netlify.app/?id=1&user='+name
+    url_link = 'https://card-it.netlify.app/?id=1&user='+name
 }
 
 document.getElementById("submit-card").addEventListener("click", function(event){
