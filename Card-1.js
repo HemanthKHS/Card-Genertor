@@ -108,8 +108,8 @@ document.getElementById("submit-card").addEventListener("click", function(event)
         projectFirestore.collection('1').doc(name).set({ name,college,phone,email,portfolio,linkedin,about,url }).then(
             alert('successfully Hosted'),
             // ChangeUrl(name)
-            document.getElementById('url').href = 'https://frosty-payne-580a2c.netlify.app/?id=1&user='+name,
-document.getElementById('url').innerHTML ='https://frosty-payne-580a2c.netlify.app/?id=1&user='+name,
+            document.getElementById('url').href = 'https://card-it.netlify.app/?id=1&user='+name,
+document.getElementById('url').innerHTML ='https://card-it.netlify.app/?id=1&user='+name,
 document.getElementById('url-text').innerHTML = 'Card Link :'
 // window.name = document.getElementById("input-name").value
         ) 
