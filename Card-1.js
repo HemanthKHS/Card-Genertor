@@ -80,7 +80,7 @@ var ChangeUrl = (name) =>{
 
 document.getElementById("submit-card").addEventListener("click", function(event){
     // alert('hello')
-
+    event.preventDefault()
     var name = document.getElementById("input-name").value
     var college = document.getElementById("input-college-name").value
     var phone = document.getElementById("input-phone").value
@@ -89,31 +89,35 @@ document.getElementById("submit-card").addEventListener("click", function(event)
     var linkedin = document.getElementById("input-linkedin").value
     var about = document.getElementById("input-about").value
     
-    // console.log({ name,college,phone,email,portfolio,linkedin,about })
-    // var storageRef = firebase.storage().ref('/images/'+ name);
-    
-    // firebase.storage().ref('/images/'+ name).put(image)
-    // .getDownloadURL()
-    // .then((resp)=>{
-    //     console.log(resp.getDownloadURL())
-    // });
-    // uploadTask.snapshot.ref.getDownloadURL().then(
-    // projectFirestore.collection('test').add({ name,college,phone,email,portfolio,linkedin,about }).then(
-    //     console.log('done')
-    // );
+   
 
-    var storageRef = firebase.storage().ref('/images/'+image.name);
-    var uploadTask = storageRef.put(image).snapshot.ref.getDownloadURL().then((url)=>{
-        console.log(url)
-        projectFirestore.collection('1').doc(name).set({ name,college,phone,email,portfolio,linkedin,about,url }).then(
-            alert('successfully Hosted'),
-            // ChangeUrl(name)
-            document.getElementById('url').href = 'https://card-it.netlify.app/?id=1&user='+name,
-document.getElementById('url').innerHTML ='https://card-it.netlify.app/?id=1&user='+name,
-document.getElementById('url-text').innerHTML = 'Card Link :'
-// window.name = document.getElementById("input-name").value
-        ) 
-})
+    // var storageRef = firebase.storage().ref('/images/'+image.name);
+//     firebase.storage().ref(`/images/${image.name}`).put(image).snapshot.ref.getDownloadURL().then((url)=>{
+//         console.log(url)
+//         projectFirestore.collection('1').doc(name).set({ name,college,phone,email,portfolio,linkedin,about,url }).then(
+//             alert('successfully Hosted'),
+//             document.getElementById('url').href = 'https://card-it.netlify.app/?id=1&user='+name,
+// document.getElementById('url').innerHTML ='https://card-it.netlify.app/?id=1&user='+name,
+// document.getElementById('url-text').innerHTML = 'Card Link :'
+//         ) 
+// })
+
+
+firebase.storage().ref(`/images/${image.name}`).put(image).on('state_changed,()' , (snap) => {
+    let percentage = (snap.bytesTransferred / snap.tatalBytes)*100;
+}, (err)=> {
+console.log(err)
+}, async () => {
+    const url = await firebase.storage().ref(`/images/${image.name}`).getDownloadURL();
+    projectFirestore.collection('1').doc(name).set({ name,college,phone,email,portfolio,linkedin,about,url }).then(
+        alert('successfully Hosted'),
+        document.getElementById('url').href = 'https://card-it.netlify.app/?id=1&user='+name,
+        document.getElementById('url').innerHTML ='https://card-it.netlify.app/?id=1&user='+name,
+        document.getElementById('url-text').innerHTML = 'Card Link :'
+    ) 
 })
 
-// console.log(firebase)
+
+
+})
+
